@@ -15,4 +15,6 @@ public interface AIAssistanceService {
 
     void updateContent(AIAssistant aiAssistant);
 
+    void addAIAssistance(AIAssistant aiAssistant);
+
 }

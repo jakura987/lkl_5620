@@ -11,10 +11,11 @@ public interface UserMapper {
     @Select("select * from user where user_name = #{userName}")
     User getUserByUserName(String userName);
 
-//    @Select("select * from user")
+    @Select("select * from user")
     List<User> getAllUsers();
 
     @Insert("INSERT INTO user (password, user_name, user_status) VALUES (#{password}, #{userName}, #{userStatus})")
+    @Options(useGeneratedKeys = true, keyProperty = "id")
     int addUser(User user);
 
     @Update("UPDATE user SET user_name=#{userName}, password=#{password}, user_status=#{userStatus} WHERE id=#{id}")

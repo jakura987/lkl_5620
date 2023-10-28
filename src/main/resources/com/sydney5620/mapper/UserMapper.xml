@@ -13,8 +13,4 @@
     <!--        select * from ai-->
     <!--    </select>-->
 
-
-    <select id="getAllUsers" resultType="User">
-        select * from user
-    </select>
 </mapper>

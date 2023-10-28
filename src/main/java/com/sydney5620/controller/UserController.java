@@ -1,10 +1,13 @@
 package com.sydney5620.controller;
 
 import com.sydney5620.common.Result;
+import com.sydney5620.pojo.AIAssistant;
 import com.sydney5620.pojo.User;
+import com.sydney5620.service.AIAssistanceService;
 import com.sydney5620.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,8 @@ import java.util.List;
 public class UserController {
     @Autowired
     private UserService userService;
+    @Autowired
+    private AIAssistanceService aiAssistanceService;
 
     @ApiOperation("UserLogin")
     @PostMapping("/login")
@@ -49,6 +54,14 @@ public class UserController {
     @PostMapping("/addUser")
     public Result<String> addUser(@RequestBody User user) {
         userService.addUser(user);
+        AIAssistant assistant = new AIAssistant();
+        assistant.setAiName("AI Assistant");
+        assistant.setCommand("You are a smart English-teaching AI Assistant");
+        assistant.setCreativity(0.5);
+        assistant.setContextCount(100);
+        assistant.setReplyLength(200);
+        assistant.setUserId(user.getId());
+        aiAssistanceService.addAIAssistance(assistant);
         return Result.success("add successfully");
 
     }

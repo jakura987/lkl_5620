@@ -44,7 +44,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Integer addUser(User user) {
+        if(user.getUserName() == null){
+            throw new BusinessException("please enter userName");
+        }
         User userByUserName = userMapper.getUserByUserName(user.getUserName());
+        user.setUserStatus("1");
+        //check whether the userName has existed
         if(userByUserName == null){
             return userMapper.addUser(user);
         }
@@ -55,7 +60,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Integer updateUser(User user) {
         User userByUserName = userMapper.getUserByUserName(user.getUserName());
-        // 检查找到的用户是否与当前正在更新的用户是同一个用户
+        // check whether the  user who was found is same as updating user
         if (userByUserName != null && !userByUserName.getId().equals(user.getId())) {
             throw new BusinessException("UserName has already been taken");
         }

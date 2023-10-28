@@ -48,4 +48,9 @@ public class AIAssistanceServiceImpl implements AIAssistanceService {
     public void updateContent(AIAssistant aiAssistant) {
         aIAssistantMapper.updateContent(aiAssistant);
     }
+
+    @Override
+    public void addAIAssistance(AIAssistant aiAssistant) {
+        aIAssistantMapper.addAIAssistance(aiAssistant);
+    }
 }

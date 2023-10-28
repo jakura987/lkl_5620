@@ -21,34 +21,34 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class WebMvcConfiguration extends WebMvcConfigurationSupport {
     @Override
     protected void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") // allow all path
-                .allowedOrigins("http://localhost:3000") // all request from localhost:3000
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")// Allowed HTTP methods
-                .allowedHeaders("*");  // Allow all headers
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                .allowedHeaders("*");
     }
 
 
     @Bean
-    public Docket docket() {
-        ApiInfo apiInfo = new ApiInfoBuilder()
-                .title("AI Assistant API")
+    public Docket apiDocumentation() {
+        ApiInfo infoDetails = new ApiInfoBuilder()
+                .title("AI Service API")
                 .version("3.0")
-                .description("an AI Assistant")
-                .contact(new Contact("Keliang Liu", "unknown","keliang123123@gmail.com"))
+                .description("A Digital AI Assistant")
+                .contact(new Contact("Keliang Liu", "notprovided", "notprovided"))
                 .build();
-        Docket docket = new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo)
+
+        Docket apiDocket = new Docket(DocumentationType.SWAGGER_2)
+                .apiInfo(infoDetails)
                 .select()
-                //Specify the package to scan for generating interfaces
                 .apis(RequestHandlerSelectors.basePackage("com.sydney5620.controller"))
                 .paths(PathSelectors.any())
                 .build();
-        return docket;
+
+        return apiDocket;
     }
 
 
     protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-        log.info("start configuring static resource mapping...");
         registry.addResourceHandler("/doc.html").addResourceLocations("classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }

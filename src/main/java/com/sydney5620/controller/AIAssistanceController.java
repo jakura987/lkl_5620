@@ -55,5 +55,12 @@ public class AIAssistanceController {
         return Result.success(null, "save chat successfully");
     }
 
+    @ApiOperation("addAIAssistance")
+    @PostMapping("/addAIAssistance")
+    public Result<String> addAIAssistance(@RequestBody AIAssistant ai){
+        aiAssistanceService.addAIAssistance(ai);
+        return Result.success("add successfully");
+    }
+
 
 }

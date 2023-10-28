@@ -1,10 +1,7 @@
 package com.sydney5620.mapper;
 
 import com.sydney5620.pojo.AIAssistant;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -23,6 +20,8 @@ public interface AIAssistantMapper {
     @Delete("delete from ai where ai_id = #{aiId}")
     Integer deleteAIAssistanceByAIId(Long aIId);
 
-//    @Update("UPDATE ai Set content = #{content} where userId = #{userId}")
     void updateContent(AIAssistant aiAssistant);
+
+    @Insert("insert into ai (userId, ai_name, command, creativity, contextCount, replyLength) values (#{userId}, #{aiName}, #{command}, #{creativity}, #{contextCount}, #{replyLength})")
+    void addAIAssistance(AIAssistant aiAssistant);
 }
